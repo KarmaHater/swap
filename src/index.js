@@ -14,7 +14,7 @@ class MyComponent extends React.Component {
                 <i className="icon-test"></i>
                 <i className="icon-test"></i>
                 <i className="icon-test"></i>
-                <button onClick={this.props.handleClick} type="button"></button>
+                <button onClick={this.props.handleClick} type="button">here is your package</button>
             </div>
         )
     }
