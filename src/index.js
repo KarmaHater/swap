@@ -22,7 +22,7 @@ import React from 'react';
 
 import React, { Component, PropTypes } from 'react';
 
-export class ComponentSwapper extends Component {
+export class Swapper extends Component {
 
     static Proptypes = {
         max: PropTypes.number
