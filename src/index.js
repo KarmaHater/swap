@@ -20,7 +20,7 @@ import React from 'react';
 //     }
 // };
 
-export default class ComponentSwapper extends Component {
+export class Swapper extends Component {
 
     static Proptypes = {
         max: PropTypes.number
@@ -84,10 +84,6 @@ export default class ComponentSwapper extends Component {
         );
     }
 }
-
-
-
-import React, { Component } from 'react';
 
 export class Swap extends Component {
 
