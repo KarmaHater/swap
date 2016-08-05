@@ -20,9 +20,7 @@ import React from 'react';
 //     }
 // };
 
-import React, { Component, PropTypes } from 'react';
-
-export class Swapper extends Component {
+export default class ComponentSwapper extends Component {
 
     static Proptypes = {
         max: PropTypes.number
@@ -31,7 +29,7 @@ export class Swapper extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            windowWidth: 400
+            windowWidth: 0
         };
     }
 
@@ -46,40 +44,47 @@ export class Swapper extends Component {
     handleResize() {
         this.setState({ windowWidth: window.innerWidth });
     }
-    _renderMaxChild() {
-        const { children } = this.props;
 
-        if (Array.isArray(children)) {
-            return children.reduce((res, c) => {
-                let defaultKey = Object.keys(c).includes('default');
-                let max = c.props.max;
-                if (max <= this.state.windowWidth) {
-                    if (res.props.max < max) {
-                        return c;
-                    } else {
-                        return res;
-                    }
+    _getMaxComponent(components) {
+        return components.reduce((res, c) => {
+            let defaultKey = Object.keys(c).includes('default');
+            let max = c.props.max;
+            if (max <= this.state.windowWidth) {
+                if (res.props.max < max) {
+                    return c;
                 } else {
                     return res;
                 }
-                if (defaultKey && res === null) {
-                    return c;
-                }
+            } else if (res.props.max === null) {
+                return c;
+            } else {
+                return res;
+            }
+
+            if (defaultKey && res.props.max === null) {
+                return c;
+            }
 
             }, {props: {max: null}});
-        } else {
-            return children;
-        }
+
+
     }
 
     render() {
+        const { children } = this.props;
+        let components = children;
+        if (Array.isArray(components)) {
+            components = this._getMaxComponent(components)
+        }
+
         return (
             <div>
-                {this._renderMaxChild()}
+                {components}
             </div>
         );
     }
 }
+
 
 
 import React, { Component } from 'react';
